@@ -1,4 +1,4 @@
-#social ODE model with M=1
+#ODE model with M=1
 
 import numpy as np
 import scipy.integrate as int
@@ -24,8 +24,7 @@ ax.set_prop_cycle(color=colors)
 plt.plot(sol.t, sol.y.T)
 plt.xlabel('Time')
 plt.ylabel('Uncommitted proportion')
-#plt.legend([r'$X_A$', '$X_B$'])
-#plt.title(r'$M=1$ and $C\neq0$')
+plt.legend([r'$X_A$', '$X_B$'])
 
 plt.rc('axes', titlesize=20)     # fontsize of the axes title
 plt.rc('axes', labelsize=23)    # fontsize of the x and y labels
