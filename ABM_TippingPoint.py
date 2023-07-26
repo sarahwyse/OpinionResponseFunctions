@@ -22,7 +22,7 @@ def social_binary_search(mem, C_min, C_max, C):
     C_mid = (C_min + C_max)/2
     # If C_temp is too far from C, not within error bound, continue
     while abs(C-C_mid) > error:
-        #set initial condition, 0 represents no climate mitigation, 1 represents climate action
+        #set initial condition, 0 represents opinion B, 1 represents opinion A
         # start with uncommitted with memory=0 and committed with memory=1
         c_pop = int(C_mid*N)
         Opinion = np.zeros(N-c_pop) #used to track opinions of uncommitted population over time
