@@ -8,19 +8,15 @@ from collections import Counter
 import time
 from joblib import Parallel, delayed
 
-t1 = time.time()
-
 #define parameters
-N = 50000      #total population
+N = 10000      #total population
 C_min = 0      #committed minority proportion
 C_max = 0.5
 M = np.arange(1,75,1)         #memory length
 t_end = 1000   #number of timesteps to run simulation for
 tipping = np.zeros((len(M),2)) #track tipping point for each memory length
 
-
 error = 10/N  #find tipping point to within 10 agents
-
 
 def social_binary_search(mem, C_min, C_max, C):
     C_mid = (C_min + C_max)/2
@@ -69,17 +65,14 @@ def social_binary_search(mem, C_min, C_max, C):
         C_mid = (C_min + C_max)/2
     #return memory length and committed minority proportion once within error bound
     return mem, C    
-        
-                        
+                               
 tipping = Parallel(n_jobs=14)(delayed(social_binary_search)(mem, C_min, C_max, 1) for mem in M)
-
     
 #plot the results
 plt.figure()
 plt.plot(*zip(*tipping),'.',color='blue')
 plt.xlabel('Memory length, M')
 plt.ylabel('Committed minority, C')
-#plt.title(r'N=%i, ' %N + r' and t=%i' %t_end)
 
 plt.rc('axes', titlesize=20)     # fontsize of the axes title
 plt.rc('axes', labelsize=15)    # fontsize of the x and y labels
@@ -90,6 +83,3 @@ plt.rc('legend', fontsize=13)    # legend fontsize
 plt.ylim(0.0, 0.5)
 
 plt.show()
-
-t2 = time.time() - t1
-
