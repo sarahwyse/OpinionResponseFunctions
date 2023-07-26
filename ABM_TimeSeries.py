@@ -18,14 +18,14 @@ prop = np.zeros((2,interactions+1)) #track proportion of opinions over time
 prop[:,0] = [1,0]
 
 Opinion = np.zeros(N-C)
-Opinion_avg = np.zeros(N)
+Opinion_sum = np.zeros(N)
 tempMem = 0
 
 #set initial condition, 0 represents opinion B, 1 represents opinion A
 #start with uncommitted with memory=0 and committed with memory=1
 Memory = np.zeros((N,M))
 for i in range(C):
-    Opinion_avg[i] = 1
+    Opinion_sum[i] = M
     for t in range(M):
         Memory[i,t] = 1
 
@@ -35,19 +35,19 @@ for t in range(t_end): #run model for t_end*(N/2) interactions
         i, j = rnd.sample(range(0,N),2) #choose two agents, i speaks, j listens
         if j>=C: #make sure listener is not committed
             #determine new memory based on speaker opinion
-            if Opinion_avg[i]==0.5: #in case speaker is undecided, sample uniformly from both opinions
+            if Opinion_sum[i]==M/2: #in case speaker is undecided, sample uniformly from both opinions
                 tempMem = rnd.randint(0,1)
-            elif Opinion_avg[i]<0.5:
+            elif Opinion_sum[i]<M/2:
                 tempMem = 0
             else:
                 tempMem = 1
-            #compute new Opinion_avg for listener and add listener back into matrix
-            Opinion_avg[j] = Opinion_avg[j] - (Memory[j,0]/M) + (tempMem/M)
+            #compute new Opinion_sum for listener and add listener back into matrix
+            Opinion_sum[j] = Opinion_sum[j] - Memory[j,0] + tempMem
             Memory[j,:] = np.append(Memory[j,1:M], tempMem)
             #convert from memory to opinion for listener, have to use j-C since Opinion only tracks uncommitted agents
-            if Opinion_avg[j]==0.5: #in case listener is undecided, sample uniformly from both opinions
+            if Opinion_sum[j]==M/2: #in case listener is undecided, sample uniformly from both opinions
                 Opinion[j-C] = rnd.randint(0,1)
-            elif Opinion_avg[j]<0.5: 
+            elif Opinion_sum[j]<M/2: 
                 Opinion[j-C] = 0
             else:
                 Opinion[j-C] = 1
