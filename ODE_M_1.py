@@ -12,7 +12,7 @@ def M1(t, z):
 
 #run simulation
 C = 0.05
-y0 = [0, 1-C]     #replace 1 with 1-C to include committed minority in total population
+y0 = [0, 1-C]
 sol = int.solve_ivp(M1, [0, 150], y0, method='LSODA')
 
 #plot
