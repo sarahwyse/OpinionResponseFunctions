@@ -1,12 +1,11 @@
-#social Opinion response functions - bifurcation diagrams for various M on one plot
+#Opinion response functions - bifurcation diagrams for various M
 
 import numpy as np
 import math
 from scipy.stats import binom
 import matplotlib.pyplot as plt
-from joblib import Parallel, delayed
 
-mem = [3, 15, 30, 45, 70]
+mem = [3, 15, 30, 45, 70]  #change legend below if changing memory lengths plotted
 cmap = plt.get_cmap('Blues')
 mem_colour = cmap(np.linspace(0.4,1,len(mem)+1))
 
@@ -61,9 +60,8 @@ def root_finder(M,C,r0,r1,phi0):
     #return root once error condition is met
     return r1
 
-
-Parallel(n_jobs=1)(delayed(bifur)(j, mem) for j in range(len(mem)))  #FIND OUT WHY THIS DOESN'T WORK FOR GREATER THAN 1
-                                                                     # I PROBABLY HAVE TO EXPORT DATA AND PLOT OUTSIDE THE PARALLEL
+for j in range(len(mem)):
+    bifur(j,mem)                                                                      
 
 plt.plot(C,np.repeat(1,len(C)), '.', color = "black")
 plt.plot(C[0:int(len(C)/2)],np.repeat(0.5,int(len(C)/2)),'.',color=mem_colour[-1])
