@@ -5,7 +5,6 @@ import numpy as np
 import random as rnd
 import matplotlib.pyplot as plt
 from collections import Counter
-import time
 from joblib import Parallel, delayed
 
 #define parameters
