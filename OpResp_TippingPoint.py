@@ -1,13 +1,10 @@
-# social opinion response functions - tipping point
+#Opinion response functions - tipping point
 
 import numpy as np
 import math
 from scipy.stats import binom
 import matplotlib.pyplot as plt
 from joblib import Parallel, delayed
-import time
-
-t1 = time.time()
 
 M = np.arange(1,75,1)         #memory length
 error = 1e-8  #error bound in root finding and tipping point search
@@ -18,7 +15,6 @@ tipping = np.zeros((len(M),2)) #track tipping point for each memory length
 
 C_min = 0      #committed minority proportion bounds for binary search
 C_max = 0.5
-
 
 def social_binary_search(M, C_min, C_max, C):
     C_mid = (C_min + C_max)/2
@@ -64,10 +60,8 @@ def root_finder(M,C,r0,r1,phi0):
         r1 = new_r
     #return root once error condition is met
     return r1
-
-#tipping = social_binary_search(1,C_min,C_max,1)                     
+                    
 tipping = Parallel(n_jobs=14)(delayed(social_binary_search)(mem, C_min, C_max, 1) for mem in M)
-
     
 #plot the results
 plt.figure()
@@ -84,5 +78,3 @@ plt.rc('legend', fontsize=14)    # legend fontsize
 plt.ylim(0, 0.5)
 
 plt.show()
-
-t2 = time.time() - t1
