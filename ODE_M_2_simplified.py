@@ -1,4 +1,4 @@
-#social ODE model with M=2 simplified
+#ODE model with M=2 and combined undecided compartments
 
 import numpy as np
 import scipy.integrate as int
@@ -13,10 +13,8 @@ def M2_simp(t, z):
 
 #run simulation
 C = 0.08
-y0 = [0, 0, 1-C]     #replace 1 with 1-C to include committed minority in total population
+y0 = [0, 0, 1-C]
 sol = int.solve_ivp(M2_simp, [0, 150], y0, method='LSODA')
-
-
 
 #plot
 cmap = plt.get_cmap('brg')
@@ -27,8 +25,7 @@ ax.set_prop_cycle(color=colors)
 plt.plot(sol.t, sol.y.T)
 plt.xlabel('Time')
 plt.ylabel('Uncommitted proportion')
-#plt.legend([r'$X_{AA}$', '$X_{U}$', '$X_{BB}$'])
-#plt.title(r'Simplified $M=2$ and $C\neq0$')
+plt.legend([r'$X_{AA}$', '$X_{U}$', '$X_{BB}$'])
 
 plt.rc('axes', titlesize=20)     # fontsize of the axes title
 plt.rc('axes', labelsize=23)    # fontsize of the x and y labels
