@@ -1,9 +1,8 @@
-#social ODE model with M=3
+#ODE model with M=3
 
 import numpy as np
 import scipy.integrate as int
 import matplotlib.pyplot as plt
-#import seaborn as sns  # to make plots pretty
 
 #model
 def M3(t, z):
@@ -19,10 +18,8 @@ def M3(t, z):
 
 #run simulation
 C = 0.12
-y0 = [0, 0, 0, 0, 0, 0, 0, 1-C]     #replace 1 with 1-C to include committed minority in total population
+y0 = [0, 0, 0, 0, 0, 0, 0, 1-C]
 sol = int.solve_ivp(M3, [0, 150], y0, method='LSODA')
-
-
 
 #plot
 cmap = plt.get_cmap('brg')
@@ -33,8 +30,7 @@ ax.set_prop_cycle(color=colors)
 plt.plot(sol.t, sol.y.T)   
 plt.xlabel('Time')
 plt.ylabel('Uncommitted proportion')
-#plt.legend([r'$X_{AAA}$', '$X_{AAB}$', '$X_{ABA}$', '$X_{BAA}$', '$X_{ABB}$', '$X_{BAB}$', '$X_{BBA}$', '$X_{BBB}$'])
-#plt.title(r'$M=3$ and $C=0.12$')
+plt.legend([r'$X_{AAA}$', '$X_{AAB}$', '$X_{ABA}$', '$X_{BAA}$', '$X_{ABB}$', '$X_{BAB}$', '$X_{BBA}$', '$X_{BBB}$'])
           
 plt.rc('axes', titlesize=20)     # fontsize of the axes title
 plt.rc('axes', labelsize=23)    # fontsize of the x and y labels
