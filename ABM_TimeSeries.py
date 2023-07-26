@@ -1,4 +1,4 @@
-#social ABM - fixed memory
+#ABM - use this code to run time series
 
 #import packages
 import numpy as np
@@ -6,8 +6,6 @@ import random as rnd
 import matplotlib.pyplot as plt
 from collections import Counter
 import time
-
-t1 = time.time()
 
 #define parameters
 N = 1000      #total population
@@ -23,8 +21,8 @@ Opinion = np.zeros(N-C)
 Opinion_avg = np.zeros(N)
 tempMem = 0
 
-#set initial condition, 0 represents no climate mitigation, 1 represents climate action
-# start with uncommitted with memory=0 and committed with memory=1
+#set initial condition, 0 represents opinion B, 1 represents opinion A
+#start with uncommitted with memory=0 and committed with memory=1
 Memory = np.zeros((N,M))
 for i in range(C):
     Opinion_avg[i] = 1
@@ -65,7 +63,6 @@ for t in range(t_end+1):
 plt.xlabel('Time')
 plt.ylabel('Proportion of opinions')
 plt.legend(['A', 'B'])
-#plt.title(r'N=%i, ' %N + r'M=%i,' %M + r' and C=%1.3f' %C_prop)
 
 plt.rc('axes', titlesize=20)     # fontsize of the axes title
 plt.rc('axes', labelsize=15)    # fontsize of the x and y labels
@@ -74,5 +71,3 @@ plt.rc('ytick', labelsize=12)    # fontsize of the tick labels
 plt.rc('legend', fontsize=13)    # legend fontsize
 
 plt.show()
-
-t2 = time.time() - t1
