@@ -30,7 +30,7 @@ ax.set_prop_cycle(color=colors)
 plt.plot(sol.t, sol.y.T)   
 plt.xlabel('Time')
 plt.ylabel('Uncommitted proportion')
-plt.legend([r'$X_{AAA}$', '$X_{AAB}$', '$X_{ABA}$', '$X_{BAA}$', '$X_{ABB}$', '$X_{BAB}$', '$X_{BBA}$', '$X_{BBB}$'])
+plt.legend([r'$y_{AAA}$', '$y_{AAB}$', '$y_{ABA}$', '$y_{BAA}$', '$y_{ABB}$', '$y_{BAB}$', '$y_{BBA}$', '$y_{BBB}$'])
           
 plt.rc('axes', titlesize=20)     # fontsize of the axes title
 plt.rc('axes', labelsize=23)    # fontsize of the x and y labels
