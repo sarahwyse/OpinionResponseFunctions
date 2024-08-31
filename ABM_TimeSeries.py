@@ -7,14 +7,14 @@ import matplotlib.pyplot as plt
 from collections import Counter
 
 #define parameters
-N = 1000      #total population
-C_prop = 0.11   #committed minority proportion
+N = 10000      #total population
+C_prop = 0.31   #committed minority proportion
 C = int(C_prop*N)        #committed minority
-M = 3         #memory length
+M = 25         #memory length, M=25 has a tipping point of 0.30856232
 t_end = 1000   #number of timesteps to run simulation for
 interactions = int(t_end*N/2) #number of interactions to run model for, each agent has ~1 interaction per timestep
 prop = np.zeros((2,interactions+1)) #track proportion of opinions over time
-prop[:,0] = [1,0]
+prop[:,0] = [1-C_prop,0]
 
 Opinion = np.zeros(N-C)
 Opinion_sum = np.zeros(N)
@@ -60,13 +60,15 @@ for t in range(t_end+1):
     plt.plot(t,prop[1,t],'.',color='blue') #count ones (A)
     plt.plot(t,prop[0,t],'.',color='red') #count zeros (B)
 plt.xlabel('Time')
-plt.ylabel('Proportion of opinions')
+plt.ylabel('Uncommitted proportion')
 plt.legend(['A', 'B'])
 
 plt.rc('axes', titlesize=20)     # fontsize of the axes title
-plt.rc('axes', labelsize=15)    # fontsize of the x and y labels
-plt.rc('xtick', labelsize=12)    # fontsize of the tick labels
-plt.rc('ytick', labelsize=12)    # fontsize of the tick labels
-plt.rc('legend', fontsize=13)    # legend fontsize
+plt.rc('axes', labelsize=23)    # fontsize of the x and y labels
+plt.rc('xtick', labelsize=18)    # fontsize of the tick labels
+plt.rc('ytick', labelsize=18)    # fontsize of the tick labels
+plt.rc('legend', fontsize=20, loc='upper right')    # legend fontsize
+
+plt.ylim(-0.05, 1.05)
 
 plt.show()
